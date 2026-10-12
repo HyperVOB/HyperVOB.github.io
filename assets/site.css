@@ -1,0 +1,243 @@
+/*
+SPDX-FileCopyrightText: HyperVOB contributors
+SPDX-License-Identifier: CC-BY-4.0
+
+hypervob.media. Colours from the HyperVOB brand (Pit, Land, Track, 650 nm); system fonts,
+as the brand keeps for interfaces: nothing loads from another site.
+*/
+
+/* Light, unless the reader prefers dark. */
+:root {
+  color-scheme: light dark;
+  --ground: #fff;
+  --text: #0d0f14; /* Pit, 19.2:1 on white */
+  --muted: #545d6e; /* 6.6:1 on white; Track is 3.6:1 there */
+  --spot: #d02a10; /* 650 deep, 5.2:1 on white */
+  /* The track's scale, CSS pixels per unit of the mark's 48-unit drawing: with the
+     display, from 2.25 on a phone to 5 on a wide screen. */
+  --s: clamp(2.25px, 1.5px + 0.2vw, 5px);
+}
+
+/* Where round() exists: the stroke (3.5 units) a whole number of pixels and the track's
+   top on a pixel, so the drawn spiral's run and the plain one carrying it on are edged
+   alike, with no step where they meet. */
+@supports (width: round(1.5px, 1px)) {
+  :root {
+    --s: round(clamp(2.25px, 1.5px + 0.2vw, 5px), 2px / 7);
+  }
+
+  main.page {
+    padding-top: round(clamp(2.5rem, 9vw, 7rem), 1px);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #0d0f14; /* Pit */
+    --text: #e8ecf3; /* Land, 16.2:1 on Pit */
+    --muted: #7d8799; /* Track, 5.3:1 on Pit */
+    --spot: #ff3b1f; /* 650 nm, 5.4:1 on Pit */
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--ground);
+  color: var(--text);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font: 1.0625rem/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  container-type: inline-size; /* cqw: the page's width without the scrollbar */
+}
+
+.page {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 9vw, 7rem) clamp(1rem, 5vw, 3rem) 0;
+}
+
+.page > p,
+.page > h2,
+.page > .facts {
+  max-width: 38rem;
+}
+
+.page--footer {
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.page--footer p {
+  margin: 0 0 0.25rem;
+}
+
+/* The mark, unwound: its spiral, then the straight run carried on across the display to
+   the laser spot, at the mark's own stroke (3.5) and spot (r 3.5, 3.25 past the run's
+   end). The run reaches the display's right gutter, past the column's 72rem. */
+.track {
+  display: flex;
+  align-items: flex-start;
+  margin-right: calc((min(100cqw, 72rem) - 100cqw) / 2);
+  margin-bottom: clamp(2.5rem, 7vw, 5rem);
+}
+
+.track__spiral {
+  flex: none;
+  width: calc(26.25 * var(--s));
+  height: calc(29.75 * var(--s));
+  overflow: hidden;
+}
+
+.track__spiral path {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The run and the spot, as tall as the spot and centred on the drawing's run. */
+.track__tail {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  height: calc(7 * var(--s));
+  margin: calc(-1.75 * var(--s)) 0 0 -1px; /* -1px: no seam where the two runs meet */
+}
+
+.track__run {
+  flex: 1 1 auto;
+  height: calc(3.5 * var(--s));
+  border-radius: 0 999px 999px 0;
+  background: var(--text);
+}
+
+.track__spot {
+  flex: none;
+  width: calc(7 * var(--s));
+  height: calc(7 * var(--s));
+  margin-left: calc(3.25 * var(--s));
+  border-radius: 50%;
+  background: var(--spot);
+}
+
+/* How far the tail has been read, in units of the mark. */
+@property --read {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+/* Read once, from the centre out, at one speed: as a disc is read at a constant linear
+   velocity, the track is drawn at 220 units of the mark a second (the spiral's 105 units
+   in 0.48 s), so a longer track, on a wider display, takes longer to unroll. */
+@media (prefers-reduced-motion: no-preference) {
+  .track__spiral path {
+    stroke-dasharray: 1 2;
+    stroke-dashoffset: 1;
+    animation: read 0.48s linear forwards;
+  }
+
+  .track__tail {
+    clip-path: inset(0 max(0px, calc(100% - var(--read) * var(--s))) 0 0);
+    animation: unroll 6s linear 0.48s both; /* 1320 units: past any display's track */
+  }
+}
+
+@keyframes read {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes unroll {
+  from {
+    --read: 0;
+  }
+
+  to {
+    --read: 1320;
+  }
+}
+
+.name {
+  margin: 0 0 clamp(1.25rem, 3vw, 2rem);
+  line-height: 0;
+}
+
+.name img {
+  width: auto;
+  height: clamp(2.25rem, 6.5vw, 4.25rem);
+}
+
+.lead {
+  margin: 0 0 1.75rem;
+  font-size: clamp(1.3125rem, 2.4vw, 1.625rem);
+  line-height: 1.35;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+h2 {
+  margin: 3rem 0 0.5rem;
+  font-size: 1.0625rem;
+  font-weight: 650;
+  line-height: 1.6;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.625rem 2rem;
+  margin: 2.5rem 0 0;
+}
+
+.facts dt {
+  color: var(--muted);
+}
+
+.facts dd {
+  margin: 0;
+}
+
+@media (max-width: 30rem) {
+  .facts {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .facts dd {
+    margin-bottom: 0.875rem;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--spot);
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--spot);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--spot);
+  outline-offset: 3px;
+  border-radius: 2px;
+}

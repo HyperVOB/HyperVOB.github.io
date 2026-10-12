@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: HyperVOB contributors
+# SPDX-License-Identifier: CC-BY-4.0
+version = 1
+
+# Files that can't carry a header: the rendered social preview, GitHub Pages'
+# configuration files and the repository's ruleset.
+[[annotations]]
+path = ["assets/social-preview.png", "CNAME", ".nojekyll", ".github/rulesets/main.json"]
+SPDX-FileCopyrightText = "HyperVOB contributors"
+SPDX-License-Identifier = "CC-BY-4.0"

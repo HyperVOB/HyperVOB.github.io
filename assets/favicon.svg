@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+SPDX-FileCopyrightText: HyperVOB contributors
+SPDX-License-Identifier: CC-BY-4.0
+
+HyperVOB favicon, the 16 px cut: stroke 4, spot r 4, one colour (650 nm red,
+3.6:1 on a white tab, 5.4:1 on a dark one). The docs serve the copy in
+docs-site/overrides/assets/favicon.svg.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="16" height="16">
+<path d="M21.25 26A3.75 3.75 0 0 1 13.75 26A7.5 7.5 0 0 1 28.75 26A11.25 11.25 0 0 1 6.25 26A15 15 0 0 1 21.25 11L31 11" fill="none" stroke="#FF3B1F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="40" cy="11" r="4" fill="#FF3B1F"/>
+</svg>
