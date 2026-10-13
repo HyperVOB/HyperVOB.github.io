@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: HyperVOB contributors
+# SPDX-License-Identifier: CC-BY-4.0
+#
+# RFC 9116. Renew Expires before it passes (the HyperVOB repository's TODO-SITE.md).
+Contact: mailto:HyperVOB@HyperVOB.media
+Expires: 2027-04-13T00:00:00Z
+Preferred-Languages: en
+Canonical: https://hypervob.media/.well-known/security.txt

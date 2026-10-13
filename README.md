@@ -16,6 +16,9 @@ stylesheet.
 | `assets/site.css` | The styles: the brand's colours, the system's fonts, the unwound track |
 | `assets/wordmark-on-dark.svg`, `assets/wordmark-on-light.svg`, `assets/favicon.svg` | Copies of the HyperVOB brand's files |
 | `assets/social-preview.png` | The brand's social preview (1280 × 640), rendered for link previews (`og:image`) |
+| `robots.txt` | Every crawler welcome, AI ones included; points to the sitemap |
+| `sitemap.xml` | The site's one address |
+| `.well-known/security.txt` | Where to report a vulnerability (RFC 9116); renew `Expires` before it passes |
 | `CNAME` | The custom domain |
 | `.nojekyll` | Serve the files as they are, without Jekyll |
 | `.github/rulesets/main.json` | `main`'s ruleset, applied by the HyperVOB repository's `scripts/harden-github.sh`: signed commits, linear history, no force-push or deletion. No pull requests or status checks: the site has no CI |
