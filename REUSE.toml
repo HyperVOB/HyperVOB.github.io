@@ -2,9 +2,18 @@
 # SPDX-License-Identifier: CC-BY-4.0
 version = 1
 
-# Files that can't carry a header: the rendered social preview, GitHub Pages'
-# configuration files and the repository's ruleset.
+# Files that can't carry a header: the brand's renders (copies of the HyperVOB
+# repository's brand/renders/), the web app manifest (JSON), GitHub Pages' configuration
+# files and the repository's ruleset.
 [[annotations]]
-path = ["assets/social-preview.png", "CNAME", ".nojekyll", ".github/rulesets/main.json"]
+path = [
+  "favicon.ico",
+  "apple-touch-icon.png",
+  "assets/*.png",
+  "manifest.webmanifest",
+  "CNAME",
+  ".nojekyll",
+  ".github/rulesets/main.json",
+]
 SPDX-FileCopyrightText = "HyperVOB contributors"
 SPDX-License-Identifier = "CC-BY-4.0"

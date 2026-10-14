@@ -15,7 +15,11 @@ stylesheet.
 | `404.html` | What GitHub Pages serves for an unknown address |
 | `assets/site.css` | The styles: the brand's colours, the system's fonts, the unwound track |
 | `assets/wordmark-on-dark.svg`, `assets/wordmark-on-light.svg`, `assets/favicon.svg` | Copies of the HyperVOB brand's files |
-| `assets/social-preview.png` | The brand's social preview (1280 × 640), rendered for link previews (`og:image`) |
+| `assets/social-preview.png` | The brand's social preview (1280 × 640), for link previews (`og:image`) |
+| `favicon.ico` | 16, 32 and 48 px icons for browsers and crawlers asking for `/favicon.ico`; the pages link it with `sizes="32x32"` before the SVG, which browsers that can use it prefer |
+| `apple-touch-icon.png` | 180 px, opaque: iOS home screens round it themselves |
+| `manifest.webmanifest` | Name, colours (Pit) and icons for "Add to Home screen"; `display: browser`, so a shortcut opens the page in the browser. The pages' CSP allows it (`manifest-src 'self'`) |
+| `assets/icon-192.png`, `assets/icon-512.png`, `assets/icon-maskable-512.png` | The manifest's icons: the tile, shown as it is, and the full-bleed mark, which launchers crop to their shape |
 | `robots.txt` | Every crawler welcome, AI ones included; points to the sitemap |
 | `sitemap.xml` | The site's one address |
 | `.well-known/security.txt` | Where to report a vulnerability (RFC 9116); renew `Expires` before it passes |
@@ -27,7 +31,9 @@ stylesheet.
 
 The colours, the mark's geometry and the wordmark come from the HyperVOB brand, whose
 sources and guidelines live in the HyperVOB repository's `brand/` folder. The copies in
-`assets/` are kept in step with it; the track on the page is the mark's spiral and run
+`assets/` are kept in step with it, and the PNGs and `favicon.ico` are copies of its
+`brand/renders/`, made by its `scripts/render_brand.py`: re-render there, then copy
+here. The track on the page is the mark's spiral and run
 at the mark's own stroke (3.5) and spot (r 3.5) in its 48-unit drawing, the run carried on
 across the page.
 
