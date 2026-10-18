@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: HyperVOB contributors
+# SPDX-License-Identifier: CC-BY-4.0
+#
+# lychee, the link checker of .github/workflows/checks.yml: every web address in the pages,
+# the README and robots.txt/security.txt still answers (the site's own included, so a
+# file the pages or the sitemap name that Pages stopped serving shows). The HyperVOB
+# repository's lychee.toml, trimmed to this site.
+
+# web addresses, and the pages' own files: their root-relative links (/assets/…) resolved
+# in the checkout, mounted at /repo as the workflow runs lychee; "/" is index.html
+scheme = ["https", "http", "file"]
+root_dir = "/repo"
+index_files = ["index.html"]
+no_progress = true
+max_retries = 3
+retry_wait_time = 5
+timeout = 30
+# 429: the site is there, it asks us to slow down
+accept = ["200..=299", "429"]
+exclude_loopback = true
+exclude_private = true

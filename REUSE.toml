@@ -4,7 +4,8 @@ version = 1
 
 # Files that can't carry a header: the brand's renders (copies of the HyperVOB
 # repository's brand/renders/), the web app manifest (JSON), GitHub Pages' configuration
-# files and the repository's ruleset.
+# files, the repository's ruleset, html-validate's settings (JSON) and the generated CI
+# tool list.
 [[annotations]]
 path = [
   "favicon.ico",
@@ -14,6 +15,8 @@ path = [
   "CNAME",
   ".nojekyll",
   ".github/rulesets/main.json",
+  ".github/htmlvalidate.json",
+  ".github/ci-tools.txt",
 ]
 SPDX-FileCopyrightText = "HyperVOB contributors"
 SPDX-License-Identifier = "CC-BY-4.0"

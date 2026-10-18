@@ -1,0 +1,7 @@
+# SPDX-FileCopyrightText: HyperVOB contributors
+# SPDX-License-Identifier: CC-BY-4.0
+# CI tool versions, the HyperVOB repository's (compiled with hashes into ci-tools.txt):
+#   uv pip compile .github/ci-tools.in --generate-hashes --universal --python-version 3.10 -o .github/ci-tools.txt
+uv==0.12.15
+pre-commit==4.6.2
+pre-commit-uv==4.3.0

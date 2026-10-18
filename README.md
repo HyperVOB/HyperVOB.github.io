@@ -25,7 +25,13 @@ stylesheet.
 | `.well-known/security.txt` | Where to report a vulnerability (RFC 9116); renew `Expires` before it passes |
 | `CNAME` | The custom domain |
 | `.nojekyll` | Serve the files as they are, without Jekyll |
-| `.github/rulesets/main.json` | `main`'s ruleset, applied by the HyperVOB repository's `scripts/harden-github.sh`: signed commits, linear history, no force-push or deletion. No pull requests or status checks: the site has no CI |
+| `.github/rulesets/main.json` | `main`'s ruleset, applied by the HyperVOB repository's `scripts/harden-github.sh`: signed commits, linear history, no force-push or deletion. No pull requests or status checks: the checks below report, they don't gate |
+| `.pre-commit-config.yaml` | The checks run before each commit and push (see Checks) |
+| `.gitattributes` | LF line endings in every checkout, Windows' included |
+| `.github/workflows/checks.yml` | The same hooks, and the link check, on pushes, pull requests and weekly |
+| `.github/htmlvalidate.json`, `.github/lychee.toml` | html-validate's and lychee's settings |
+| `.github/ci-tools.in`, `.github/ci-tools.txt`, `.github/uv.toml` | The hash-pinned tools CI installs pre-commit with, and the 7-day cooldown for the hooks' environments |
+| `.github/dependabot.yml` | Monthly updates of the hook revs and the Actions |
 
 ## Brand
 
@@ -47,8 +53,25 @@ Should the organisation's Actions policy (selected actions, SHA pinning) stop
 GitHub's own Pages build, the fallback is a workflow of SHA-pinned
 `actions/upload-pages-artifact` and `actions/deploy-pages`.
 
+Pages serves the whole branch, these notes and the settings in `.github/` included: keep
+anything that isn't the site out of the root, apart from what has to be there
+(`.pre-commit-config.yaml`).
+
 Preview locally with a server that sends `.svg` as `image/svg+xml` (Python's on Windows
 sends `text/xml`, and browsers then refuse the images).
+
+## Checks
+
+`pre-commit install` once per clone (pre-commit, commit-msg and pre-push hooks), as in
+the HyperVOB repository: the pages' markup (html-validate, `.github/htmlvalidate.json`:
+no inline styles or scripts, which the CSP refuses anyway), JSON and XML well-formed,
+REUSE, spelling, secrets, the workflows (zizmor, actionlint) and Conventional Commits.
+html-validate needs Node on the PATH, actionlint Docker running when a workflow changes.
+CI (`.github/workflows/checks.yml`) runs the same hooks, gitleaks aside (GitHub's secret
+scanning covers a public repository), and lychee over every web address in the pages,
+this README and the `.txt` files (`.github/lychee.toml`), the site's own included, and
+every file they link to (`/assets/…`, resolved in the checkout). The weekly run also
+fails from 30 days before `security.txt`'s `Expires`: the reminder to renew it.
 
 ## Licence
 

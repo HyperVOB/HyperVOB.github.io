@@ -1,0 +1,7 @@
+# SPDX-FileCopyrightText: HyperVOB contributors
+# SPDX-License-Identifier: CC-BY-4.0
+#
+# Supply-chain cooldown for the pre-commit hooks' environments in CI (UV_CONFIG_FILE in
+# .github/workflows/checks.yml; locally the user's uv config): only packages published at
+# least 7 days ago.
+exclude-newer = "7 days"

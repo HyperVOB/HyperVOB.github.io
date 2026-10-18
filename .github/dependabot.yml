@@ -1,0 +1,36 @@
+# SPDX-FileCopyrightText: HyperVOB contributors
+# SPDX-License-Identifier: CC-BY-4.0
+#
+# Version updates as one pull request a month, 7 days after a release (supply-chain
+# cooldown, as in the HyperVOB repository; a multi-ecosystem group has no cooldown of its
+# own, so every entry sets it). Not here, bumped by hand with the HyperVOB repository's:
+# .github/ci-tools.txt, html-validate (.pre-commit-config.yaml's local hook) and lychee's
+# image (.github/workflows/checks.yml; Dependabot reads images only from Dockerfiles).
+version: 2
+multi-ecosystem-groups:
+  monthly:
+    schedule:
+      interval: monthly
+    # chore(deps): …, as the repository's Conventional Commits expect
+    commit-message:
+      prefix: chore
+      include: scope
+
+updates:
+  # the hook revs, kept as commit SHAs with their # frozen: comments (local hooks are
+  # skipped); actionlint's image tag in its entry is not bumped: change it with the rev
+  - package-ecosystem: pre-commit
+    directory: /
+    multi-ecosystem-group: monthly
+    patterns: ["*"]
+    cooldown:
+      default-days: 7
+    rebase-strategy: disabled
+
+  - package-ecosystem: github-actions
+    directory: /
+    multi-ecosystem-group: monthly
+    patterns: ["*"]
+    cooldown:
+      default-days: 7
+    rebase-strategy: disabled

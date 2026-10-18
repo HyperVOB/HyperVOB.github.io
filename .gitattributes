@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: HyperVOB contributors
+# SPDX-License-Identifier: CC-BY-4.0
+#
+# LF in the repository and the working tree, whatever core.autocrlf says (the
+# mixed-line-ending hook keeps it so), as in the HyperVOB repository
+* text=auto eol=lf
+
+*.png  binary
+*.ico  binary
